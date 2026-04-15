@@ -13,7 +13,7 @@ export default function CitizenDashboard() {
       const token = localStorage.getItem('token');
       if (!token) return window.location.href = '/login';
       try {
-        const res = await axios.get('http://localhost:8080/api/complaints', {
+        const res = await axios.get('http://localhost:8081/api/complaints', {
           headers: { Authorization: `Bearer ${token}` }
         });
         setComplaints(res.data);

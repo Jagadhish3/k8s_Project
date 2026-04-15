@@ -5,11 +5,12 @@ import { Camera, MapPin, Send, AlertTriangle, Shield, EyeOff, Mail, Search, Chec
 
 export default function ComplaintForm() {
   const [formData, setFormData] = useState({
-    title: '', description: '', category: 'CIVIC', anonymous: true, contactEmail: ''
+    title: '', description: '', category: 'CIVIC', anonymous: true, contactEmail: '', locationLabel: '', priority: 'MEDIUM'
   });
   const [statusMsg, setStatusMsg] = useState({ text: '', type: '' });
   const [isLoading, setIsLoading] = useState(false);
   const [photoAdded, setPhotoAdded] = useState(false);
+  const [uploadFile, setUploadFile] = useState(null);
 
   const getLocation = () => {
     if (navigator.geolocation) {
@@ -27,9 +28,16 @@ export default function ComplaintForm() {
 
     const token = localStorage.getItem('token');
     const headers = token ? { Authorization: `Bearer ${token}` } : {};
-    const url = token ? 'http://localhost:8080/api/complaints' : 'http://localhost:8080/api/complaints/public';
+    const url = token ? 'http://localhost:8081/api/complaints' : 'http://localhost:8081/api/complaints/public';
 
-    const submitData = token ? { ...formData, anonymous: false } : formData;
+    let mediaPath = '';
+    if (uploadFile) {
+      const multipart = new FormData();
+      multipart.append('file', uploadFile);
+      const uploadRes = await axios.post('http://localhost:8081/api/files/upload', multipart, { headers });
+      mediaPath = uploadRes.data.path;
+    }
+    const submitData = token ? { ...formData, anonymous: false, mediaPath } : { ...formData, mediaPath };
 
     try {
       await axios.post(url, submitData, { headers });
@@ -149,7 +157,9 @@ export default function ComplaintForm() {
                   {photoAdded ? 'Photo Added' : 'Add Photo'}
                 </button>
               </div>
+              <input type="file" accept="image/*,video/mp4" onChange={(e) => setUploadFile(e.target.files?.[0])} className="mt-3 block w-full text-sm text-slate-300" />
             </div>
+            <input value={formData.locationLabel} onChange={e => setFormData({ ...formData, locationLabel: e.target.value })} placeholder="Location name / area" className="w-full rounded-xl border border-slate-700 bg-slate-900/60 p-3.5 text-white outline-none" />
 
             {!localStorage.getItem('token') && (
               <div className="rounded-xl border border-slate-700/50 bg-slate-900/35 p-4">

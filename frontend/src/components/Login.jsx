@@ -9,6 +9,7 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
+  const [role, setRole] = useState('CITIZEN');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
@@ -19,13 +20,14 @@ export default function Login() {
     setError('');
     try {
       if (isLogin) {
-        const res = await axios.post('http://localhost:8080/api/auth/login', { email, password });
+        const res = await axios.post('http://localhost:8081/api/auth/login', { email, password });
         localStorage.setItem('token', res.data.token);
         localStorage.setItem('role', res.data.role);
-        if (res.data.role === 'ADMIN') navigate('/admin');
+        if (res.data.role === 'ADMIN' || res.data.role === 'SUPER_ADMIN') navigate('/admin');
+        else if (res.data.role === 'OFFICER') navigate('/officer');
         else navigate('/dashboard');
       } else {
-        await axios.post('http://localhost:8080/api/auth/register', { name, email, password, adminUser: false });
+        await axios.post('http://localhost:8081/api/auth/register', { name, email, password, role });
         setIsLogin(true);
         setError('Registration successful! Please login.');
       }
@@ -37,7 +39,7 @@ export default function Login() {
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = 'http://localhost:8080/oauth2/authorization/google';
+    window.location.href = 'http://localhost:8081/oauth2/authorization/google';
   };
 
   return (
@@ -106,6 +108,16 @@ export default function Login() {
                 </motion.div>
               )}
             </AnimatePresence>
+            {!isLogin && (
+              <select
+                value={role}
+                onChange={e => setRole(e.target.value)}
+                className="w-full rounded-xl border border-slate-700 bg-slate-900/60 py-3.5 pl-4 pr-4 text-white outline-none transition-all focus:border-indigo-400 focus:ring-2 focus:ring-indigo-400/25"
+              >
+                <option value="CITIZEN">Citizen</option>
+                <option value="OFFICER">Officer</option>
+              </select>
+            )}
 
             <div>
               <label className="mb-1.5 ml-1 block text-xs font-semibold uppercase tracking-wide text-slate-400">Email</label>

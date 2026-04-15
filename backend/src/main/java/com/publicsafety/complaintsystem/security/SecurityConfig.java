@@ -49,7 +49,9 @@ public class SecurityConfig {
                         .requestMatchers(new AntPathRequestMatcher("/api/complaints/public/**")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/actuator/**")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/ws/**")).permitAll()
-                        .requestMatchers(new AntPathRequestMatcher("/api/admin/**")).hasRole("ADMIN")
+                        .requestMatchers(new AntPathRequestMatcher("/api/admin/**")).hasAnyRole("ADMIN", "SUPER_ADMIN")
+                        .requestMatchers(new AntPathRequestMatcher("/api/officer/**")).hasAnyRole("OFFICER", "ADMIN", "SUPER_ADMIN")
+                        .requestMatchers(new AntPathRequestMatcher("/api/analytics/**")).hasAnyRole("ADMIN", "SUPER_ADMIN")
                         .anyRequest().authenticated()
                 )
                 .exceptionHandling(exception -> exception

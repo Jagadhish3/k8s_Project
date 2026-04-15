@@ -1,6 +1,7 @@
 package com.publicsafety.complaintsystem.domain;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "users")
@@ -22,6 +23,18 @@ public class User {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
+
+    @Column(length = 20)
+    private String phone;
+
+    @Column(nullable = false, length = 10)
+    private String preferredLanguage = "en";
+
+    @Column(nullable = false)
+    private Boolean enabled = true;
+
+    @Column
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     // Constructors
     public User() {}
@@ -48,4 +61,16 @@ public class User {
     
     public Role getRole() { return role; }
     public void setRole(Role role) { this.role = role; }
+
+    public String getPhone() { return phone; }
+    public void setPhone(String phone) { this.phone = phone; }
+
+    public String getPreferredLanguage() { return preferredLanguage; }
+    public void setPreferredLanguage(String preferredLanguage) { this.preferredLanguage = preferredLanguage; }
+
+    public Boolean getEnabled() { return enabled; }
+    public void setEnabled(Boolean enabled) { this.enabled = enabled; }
+
+    public LocalDateTime getCreatedAt() { return createdAt; }
+    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 }

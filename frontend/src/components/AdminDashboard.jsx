@@ -9,17 +9,20 @@ export default function AdminDashboard() {
   const [complaints, setComplaints] = useState([]);
   const [liveAlerts, setLiveAlerts] = useState([]);
   const [stats, setStats] = useState({ total: 0, pending: 0, resolved: 0 });
+  const [keyword, setKeyword] = useState('');
+  const [officers, setOfficers] = useState([]);
+  const [selectedOfficerByComplaint, setSelectedOfficerByComplaint] = useState({});
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    if (!token || localStorage.getItem('role') !== 'ADMIN') {
+    if (!token || !['ADMIN', 'SUPER_ADMIN'].includes(localStorage.getItem('role'))) {
       window.location.href = '/login';
       return;
     }
 
     const fetchComplaints = async () => {
       try {
-        const res = await axios.get('http://localhost:8080/api/admin/complaints', {
+        const res = await axios.get(`http://localhost:8081/api/admin/complaints${keyword ? `?keyword=${encodeURIComponent(keyword)}` : ''}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         const data = res.data;
@@ -35,10 +38,22 @@ export default function AdminDashboard() {
       }
     };
 
+    const fetchOfficers = async () => {
+      try {
+        const officerRes = await axios.get('http://localhost:8081/api/admin/officers', {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        setOfficers(officerRes.data);
+      } catch (err) {
+        console.error('Error fetching officers', err);
+      }
+    };
+
     fetchComplaints();
+    fetchOfficers();
 
     const stompClient = new Client({
-      webSocketFactory: () => new SockJS('http://localhost:8080/ws'),
+      webSocketFactory: () => new SockJS('http://localhost:8081/ws'),
       onConnect: () => {
         console.log('Connected to WebSocket');
         stompClient.subscribe('/topic/admin/complaints', (msg) => {
@@ -54,12 +69,12 @@ export default function AdminDashboard() {
     stompClient.activate();
 
     return () => stompClient.deactivate();
-  }, []);
+  }, [keyword]);
 
   const updateStatus = async (id, status) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.put(`http://localhost:8080/api/admin/complaints/${id}/status?status=${status}`, null, {
+      await axios.put(`http://localhost:8081/api/admin/complaints/${id}/status`, { status, remarks: `Updated by admin to ${status}` }, {
         headers: { Authorization: `Bearer ${token}` }
       });
       const updated = complaints.map(c => c.id === id ? { ...c, status } : c);
@@ -71,6 +86,24 @@ export default function AdminDashboard() {
       });
     } catch (err) {
       console.error('Error updating status', err);
+    }
+  };
+
+  const assignComplaint = async (complaintId) => {
+    const officerId = selectedOfficerByComplaint[complaintId];
+    if (!officerId) return;
+    try {
+      const token = localStorage.getItem('token');
+      await axios.put(`http://localhost:8081/api/admin/complaints/${complaintId}/assign`, {
+        officerId,
+        remarks: 'Assigned by admin'
+      }, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      const updated = complaints.map(c => c.id === complaintId ? { ...c, assignedOfficer: { id: officerId }, status: 'IN_PROGRESS' } : c);
+      setComplaints(updated);
+    } catch (err) {
+      console.error('Error assigning complaint', err);
     }
   };
 
@@ -110,6 +143,7 @@ export default function AdminDashboard() {
           </div>
 
           <div className="flex w-full gap-3 overflow-x-auto pb-1 lg:w-auto">
+            <input value={keyword} onChange={(e) => setKeyword(e.target.value)} placeholder="Search..." className="rounded-lg border border-slate-700 bg-slate-900/70 px-3 py-2 text-sm text-white" />
             <div className="min-w-[140px] rounded-xl border border-slate-700 bg-slate-800/80 px-4 py-3">
               <div className="mb-2 flex items-center gap-2 text-slate-400"><Activity className="h-4 w-4 text-blue-300" /> Total</div>
               <div className="text-2xl font-bold text-white">{stats.total}</div>
@@ -147,12 +181,13 @@ export default function AdminDashboard() {
                   <th className="p-4">Category</th>
                   <th className="p-4">Status</th>
                   <th className="p-4">Reporter</th>
+                  <th className="p-4">Assign Officer</th>
                 </tr>
               </thead>
               <tbody>
                 {complaints.length === 0 && (
                   <tr>
-                    <td colSpan="4" className="p-10 text-center text-slate-500">No complaints available inside the system.</td>
+                    <td colSpan="5" className="p-10 text-center text-slate-500">No complaints available inside the system.</td>
                   </tr>
                 )}
 
@@ -208,6 +243,21 @@ export default function AdminDashboard() {
                           )}
                         </div>
                       )}
+                    </td>
+                    <td className="p-4 align-top">
+                      <div className="flex min-w-[190px] gap-2">
+                        <select
+                          value={selectedOfficerByComplaint[c.id] || c.assignedOfficer?.id || ''}
+                          onChange={(e) => setSelectedOfficerByComplaint(prev => ({ ...prev, [c.id]: Number(e.target.value) }))}
+                          className="w-full rounded-md border border-slate-600 bg-slate-900 px-2 py-2 text-xs"
+                        >
+                          <option value="">Select officer</option>
+                          {officers.map((o) => (
+                            <option key={o.id} value={o.id}>{o.name} ({o.email})</option>
+                          ))}
+                        </select>
+                        <button onClick={() => assignComplaint(c.id)} className="rounded bg-emerald-600 px-2 py-2 text-xs font-semibold">Assign</button>
+                      </div>
                     </td>
                   </tr>
                 ))}
