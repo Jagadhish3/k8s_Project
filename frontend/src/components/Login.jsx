@@ -32,7 +32,9 @@ export default function Login() {
         setError('Registration successful! Please login.');
       }
     } catch (err) {
-      setError(err.response?.data || 'An error occurred');
+      const respData = err?.response?.data;
+      const message = typeof respData === 'string' ? respData : respData?.message || err.message || JSON.stringify(respData) || 'An error occurred';
+      setError(message);
     } finally {
       setIsLoading(false);
     }
