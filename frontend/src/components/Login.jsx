@@ -45,7 +45,7 @@ export default function Login() {
   };
 
   return (
-    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-br from-emerald-950 via-slate-900 to-emerald-900 px-4 py-8 font-sans">
+    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-br from-white via-gray-50 to-emerald-50 px-4 py-8 font-sans text-slate-900">
       <div className="pointer-events-none absolute -left-24 -top-24 h-80 w-80 rounded-full bg-emerald-400/20 blur-[110px]" />
       <div className="pointer-events-none absolute -bottom-24 -right-24 h-80 w-80 rounded-full bg-emerald-200/20 blur-[120px]" />
       <div className="pointer-events-none absolute inset-x-0 top-1/3 mx-auto h-64 w-[60vw] rounded-full bg-white/10 blur-[120px]" />
@@ -104,7 +104,7 @@ export default function Login() {
                       required
                       value={name}
                       onChange={e => setName(e.target.value)}
-                      className="w-full rounded-xl border border-slate-700 bg-slate-900/60 py-3.5 pl-12 pr-4 text-white outline-none transition-all placeholder:text-slate-500 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-400/25"
+                      className="w-full rounded-xl border border-gray-200 bg-white/95 py-3.5 pl-12 pr-4 text-slate-900 outline-none transition-all placeholder:text-slate-400 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-400/25"
                     />
                   </div>
                 </motion.div>
@@ -114,7 +114,7 @@ export default function Login() {
               <select
                 value={role}
                 onChange={e => setRole(e.target.value)}
-                className="w-full rounded-xl border border-slate-700 bg-slate-900/60 py-3.5 pl-4 pr-4 text-white outline-none transition-all focus:border-indigo-400 focus:ring-2 focus:ring-indigo-400/25"
+                className="w-full rounded-xl border border-gray-200 bg-white/95 py-3.5 pl-4 pr-4 text-slate-900 outline-none transition-all focus:border-indigo-400 focus:ring-2 focus:ring-indigo-400/25"
               >
                 <option value="CITIZEN">Citizen</option>
                 <option value="OFFICER">Officer</option>
@@ -131,7 +131,7 @@ export default function Login() {
                   required
                   value={email}
                   onChange={e => setEmail(e.target.value)}
-                  className="w-full rounded-xl border border-slate-700 bg-slate-900/60 py-3.5 pl-12 pr-4 text-white outline-none transition-all placeholder:text-slate-500 focus:border-blue-400 focus:ring-2 focus:ring-blue-400/25"
+                  className="w-full rounded-xl border border-gray-200 bg-white/95 py-3.5 pl-12 pr-4 text-slate-900 outline-none transition-all placeholder:text-slate-400 focus:border-blue-400 focus:ring-2 focus:ring-blue-400/25"
                 />
               </div>
             </div>
@@ -146,7 +146,7 @@ export default function Login() {
                   required
                   value={password}
                   onChange={e => setPassword(e.target.value)}
-                  className="w-full rounded-xl border border-slate-700 bg-slate-900/60 py-3.5 pl-12 pr-4 text-white outline-none transition-all placeholder:text-slate-500 focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/25"
+                  className="w-full rounded-xl border border-gray-200 bg-white/95 py-3.5 pl-12 pr-4 text-slate-900 outline-none transition-all placeholder:text-slate-400 focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/25"
                 />
               </div>
             </div>

@@ -126,8 +126,8 @@ export default function AdminDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-950 via-slate-900 to-emerald-900 pb-10 font-sans text-slate-200">
-      <div className="relative overflow-hidden border-b border-slate-700/50 bg-slate-800/60 px-4 py-8 backdrop-blur-xl sm:px-6">
+    <div className="min-h-screen bg-gradient-to-br from-white via-gray-50 to-emerald-50 pb-10 font-sans text-slate-900">
+      <div className="relative overflow-hidden border-b border-gray-200 bg-white/90 px-4 py-8 backdrop-blur-sm sm:px-6">
         <div className="pointer-events-none absolute left-1/2 top-0 h-72 w-[70vw] -translate-x-1/2 rounded-full bg-emerald-400/12 blur-[120px]" />
         <div className="pointer-events-none absolute -right-24 top-0 h-72 w-72 rounded-full bg-white/10 blur-[130px]" />
 
@@ -137,24 +137,24 @@ export default function AdminDashboard() {
               <ShieldAlert className="h-8 w-8" />
             </div>
             <div>
-              <h2 className="bg-gradient-to-r from-indigo-300 to-cyan-300 bg-clip-text text-3xl font-bold text-transparent">Admin Command Center</h2>
-              <p className="mt-1 text-sm text-slate-400">Monitor incoming complaints and manage status updates in real time.</p>
+              <h2 className="bg-gradient-to-r from-indigo-500 to-cyan-500 bg-clip-text text-3xl font-bold text-transparent">Admin Command Center</h2>
+              <p className="mt-1 text-sm text-slate-600">Monitor incoming complaints and manage status updates in real time.</p>
             </div>
           </div>
 
           <div className="flex w-full gap-3 overflow-x-auto pb-1 lg:w-auto">
-            <input value={keyword} onChange={(e) => setKeyword(e.target.value)} placeholder="Search..." className="rounded-lg border border-slate-700 bg-slate-900/70 px-3 py-2 text-sm text-white" />
-            <div className="min-w-[140px] rounded-xl border border-slate-700 bg-slate-800/80 px-4 py-3">
-              <div className="mb-2 flex items-center gap-2 text-slate-400"><Activity className="h-4 w-4 text-blue-300" /> Total</div>
-              <div className="text-2xl font-bold text-white">{stats.total}</div>
+            <input value={keyword} onChange={(e) => setKeyword(e.target.value)} placeholder="Search..." className="rounded-lg border border-gray-200 bg-white/90 px-3 py-2 text-sm text-slate-700" />
+            <div className="min-w-[140px] rounded-xl border border-gray-200 bg-white/90 px-4 py-3">
+              <div className="mb-2 flex items-center gap-2 text-slate-600"><Activity className="h-4 w-4 text-blue-500" /> Total</div>
+              <div className="text-2xl font-bold text-slate-900">{stats.total}</div>
             </div>
-            <div className="min-w-[140px] rounded-xl border border-slate-700 bg-slate-800/80 px-4 py-3">
-              <div className="mb-2 flex items-center gap-2 text-slate-400"><Clock className="h-4 w-4 text-amber-300" /> Pending</div>
-              <div className="text-2xl font-bold text-white">{stats.pending}</div>
+            <div className="min-w-[140px] rounded-xl border border-gray-200 bg-white/90 px-4 py-3">
+              <div className="mb-2 flex items-center gap-2 text-slate-600"><Clock className="h-4 w-4 text-amber-500" /> Pending</div>
+              <div className="text-2xl font-bold text-slate-900">{stats.pending}</div>
             </div>
-            <div className="min-w-[140px] rounded-xl border border-slate-700 bg-slate-800/80 px-4 py-3">
-              <div className="mb-2 flex items-center gap-2 text-slate-400"><CheckCircle className="h-4 w-4 text-emerald-300" /> Resolved</div>
-              <div className="text-2xl font-bold text-white">{stats.resolved}</div>
+            <div className="min-w-[140px] rounded-xl border border-gray-200 bg-white/90 px-4 py-3">
+              <div className="mb-2 flex items-center gap-2 text-slate-600"><CheckCircle className="h-4 w-4 text-emerald-500" /> Resolved</div>
+              <div className="text-2xl font-bold text-slate-900">{stats.resolved}</div>
             </div>
           </div>
         </div>
@@ -164,10 +164,10 @@ export default function AdminDashboard() {
         <motion.section
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          className="overflow-hidden rounded-3xl border border-slate-700/50 bg-slate-800/40 shadow-2xl backdrop-blur-md xl:col-span-3"
+          className="overflow-hidden rounded-3xl border border-gray-200 bg-white/90 shadow-sm xl:col-span-3"
         >
-          <div className="flex items-center justify-between border-b border-slate-700/70 bg-slate-800/80 px-5 py-4">
-            <h3 className="text-lg font-bold text-white">Live Complaints Table</h3>
+          <div className="flex items-center justify-between border-b border-gray-200 bg-white/90 px-5 py-4">
+            <h3 className="text-lg font-bold text-slate-900">Live Complaints Table</h3>
             <span className="inline-flex items-center gap-1.5 rounded-full border border-red-500/35 bg-red-500/10 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-red-300">
               <Radio className="h-3 w-3 animate-pulse" /> Live
             </span>
@@ -175,8 +175,8 @@ export default function AdminDashboard() {
 
           <div className="max-h-[70vh] overflow-auto">
             <table className="w-full min-w-[760px] border-collapse text-left">
-              <thead className="sticky top-0 z-10 bg-slate-900/80 backdrop-blur">
-                <tr className="border-b border-slate-700/60 text-[11px] font-bold uppercase tracking-[0.18em] text-slate-400">
+              <thead className="sticky top-0 z-10 bg-white/95 backdrop-blur-sm">
+                  <tr className="border-b border-gray-200 text-[11px] font-bold uppercase tracking-[0.18em] text-slate-600">
                   <th className="p-4 pl-6">Incident</th>
                   <th className="p-4">Category</th>
                   <th className="p-4">Status</th>
@@ -192,13 +192,13 @@ export default function AdminDashboard() {
                 )}
 
                 {complaints.map((c) => (
-                  <tr key={c.id} className="group border-b border-slate-700/30 transition-colors hover:bg-slate-800/55">
+                  <tr key={c.id} className="group border-b border-gray-200 transition-colors hover:bg-gray-50">
                     <td className="min-w-[320px] p-4 pl-6 align-top">
                       <div className="flex items-start gap-3">
-                        <span className="mt-0.5 rounded border border-slate-700 bg-slate-800/80 px-2 py-1 text-[10px] font-bold text-slate-500">#{c.id.toString().padStart(4, '0')}</span>
+                        <span className="mt-0.5 rounded border border-gray-200 bg-white/90 px-2 py-1 text-[10px] font-bold text-slate-600">#{c.id.toString().padStart(4, '0')}</span>
                         <div>
-                          <p className="font-semibold leading-tight text-white transition-colors group-hover:text-cyan-300">{c.title}</p>
-                          <p className="mt-1.5 line-clamp-2 text-sm leading-relaxed text-slate-400">{c.description}</p>
+                          <p className="font-semibold leading-tight text-slate-900 transition-colors group-hover:text-cyan-600">{c.title}</p>
+                          <p className="mt-1.5 line-clamp-2 text-sm leading-relaxed text-slate-600">{c.description}</p>
                           {c.latitude && (
                             <span className="mt-2 inline-flex items-center gap-1 rounded-md bg-cyan-500/10 px-2 py-1 text-[11px] font-medium text-cyan-300">
                               <MapPin size={12} /> {c.latitude.toFixed(4)}, {c.longitude.toFixed(4)}
@@ -232,14 +232,14 @@ export default function AdminDashboard() {
 
                     <td className="p-4 align-top">
                       {c.anonymous ? (
-                        <span className="inline-flex items-center gap-1.5 rounded-md border border-slate-700/60 bg-slate-800/80 px-2.5 py-1 text-[11px] font-semibold text-slate-400">
+                        <span className="inline-flex items-center gap-1.5 rounded-md border border-gray-200 bg-white/90 px-2.5 py-1 text-[11px] font-semibold text-slate-600">
                           <EyeOff size={12} /> Anonymous
                         </span>
                       ) : (
                         <div className="text-xs">
-                          <p className="font-medium text-slate-300">User #{c.user?.id || 'Unknown'}</p>
+                          <p className="font-medium text-slate-700">User #{c.user?.id || 'Unknown'}</p>
                           {c.contactEmail && (
-                            <p className="mt-0.5 max-w-[140px] truncate text-[10px] text-slate-500" title={c.contactEmail}>{c.contactEmail}</p>
+                            <p className="mt-0.5 max-w-[140px] truncate text-[10px] text-slate-600" title={c.contactEmail}>{c.contactEmail}</p>
                           )}
                         </div>
                       )}
@@ -249,7 +249,7 @@ export default function AdminDashboard() {
                         <select
                           value={selectedOfficerByComplaint[c.id] || c.assignedOfficer?.id || ''}
                           onChange={(e) => setSelectedOfficerByComplaint(prev => ({ ...prev, [c.id]: Number(e.target.value) }))}
-                          className="w-full rounded-md border border-slate-600 bg-slate-900 px-2 py-2 text-xs"
+                          className="w-full rounded-md border border-gray-200 bg-white/90 px-2 py-2 text-xs text-slate-700"
                         >
                           <option value="">Select officer</option>
                           {officers.map((o) => (

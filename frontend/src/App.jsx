@@ -10,17 +10,17 @@ import './index.css';
 function App() {
   return (
     <Router>
-      <div className="min-h-screen w-full bg-slate-900 text-white">
-        <nav className="sticky top-0 z-50 border-b border-slate-700/50 bg-slate-900/70 px-4 py-3 backdrop-blur-xl">
+      <div className="min-h-screen w-full bg-white text-slate-900">
+        <nav className="sticky top-0 z-50 border-b border-gray-200 bg-white/90 px-4 py-3 backdrop-blur-sm">
           <div className="mx-auto flex w-full max-w-7xl items-center justify-between">
             <h1 className="bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-lg font-bold text-transparent sm:text-xl">
               Smart Public Safety....
             </h1>
             <div className="flex items-center gap-4 text-sm sm:text-base">
-              <Link to="/login" className="text-slate-300 transition hover:text-blue-300">Login</Link>
-              <Link to="/submit" className="text-slate-300 transition hover:text-emerald-300">Report Issue</Link>
-              <Link to="/officer" className="text-slate-300 transition hover:text-emerald-300">Officer</Link>
-              <Link to="/analytics" className="text-slate-300 transition hover:text-emerald-300">Analytics</Link>
+              <Link to="/login" className="text-slate-700 transition hover:text-blue-500">Login</Link>
+              <Link to="/submit" className="text-slate-700 transition hover:text-emerald-600">Report Issue</Link>
+              <Link to="/officer" className="text-slate-700 transition hover:text-emerald-600">Officer</Link>
+              <Link to="/analytics" className="text-slate-700 transition hover:text-emerald-600">Analytics</Link>
             </div>
           </div>
         </nav>

@@ -52,7 +52,7 @@ export default function ComplaintForm() {
   };
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-emerald-950 via-slate-900 to-emerald-900 px-4 py-10 font-sans text-slate-200 sm:px-6">
+    <div className="relative min-h-screen bg-gradient-to-br from-white via-gray-50 to-emerald-50 px-4 py-10 font-sans text-slate-900 sm:px-6">
       <div className="pointer-events-none absolute left-1/2 top-0 h-72 w-[72vw] -translate-x-1/2 rounded-full bg-emerald-300/15 blur-[120px]" />
       <div className="pointer-events-none absolute -left-20 top-24 h-56 w-56 rounded-full bg-white/10 blur-[110px]" />
 
@@ -70,7 +70,7 @@ export default function ComplaintForm() {
           <p className="text-slate-400">Provide accurate details so the right team can resolve it quickly.</p>
         </div>
 
-        <div className="overflow-hidden rounded-3xl border border-slate-700/50 bg-slate-800/60 p-6 shadow-2xl backdrop-blur-xl sm:p-8">
+        <div className="overflow-hidden rounded-3xl border border-gray-200 bg-white/95 p-6 shadow-sm sm:p-8">
           <AnimatePresence mode="wait">
             {statusMsg.text && (
               <motion.div
@@ -98,7 +98,7 @@ export default function ComplaintForm() {
                 required
                 value={formData.title}
                 onChange={e => setFormData({ ...formData, title: e.target.value })}
-                className="w-full rounded-xl border border-slate-700 bg-slate-900/60 p-3.5 text-white outline-none transition-all placeholder:text-slate-500 focus:border-orange-400 focus:ring-2 focus:ring-orange-400/25"
+                  className="w-full rounded-xl border border-gray-200 bg-white/95 p-3.5 text-slate-900 outline-none transition-all placeholder:text-slate-400 focus:border-orange-400 focus:ring-2 focus:ring-orange-400/25"
               />
             </div>
 
@@ -110,7 +110,7 @@ export default function ComplaintForm() {
                 rows="5"
                 value={formData.description}
                 onChange={e => setFormData({ ...formData, description: e.target.value })}
-                className="custom-scrollbar w-full resize-none rounded-xl border border-slate-700 bg-slate-900/60 p-3.5 text-white outline-none transition-all placeholder:text-slate-500 focus:border-orange-400 focus:ring-2 focus:ring-orange-400/25"
+                  className="custom-scrollbar w-full resize-none rounded-xl border border-gray-200 bg-white/95 p-3.5 text-slate-900 outline-none transition-all placeholder:text-slate-400 focus:border-orange-400 focus:ring-2 focus:ring-orange-400/25"
               />
             </div>
 
@@ -122,7 +122,7 @@ export default function ComplaintForm() {
                   <select
                     value={formData.category}
                     onChange={e => setFormData({ ...formData, category: e.target.value })}
-                    className="w-full cursor-pointer appearance-none rounded-xl border border-slate-700 bg-slate-900/60 py-3.5 pl-12 pr-9 text-white outline-none transition-all focus:border-orange-400 focus:ring-2 focus:ring-orange-400/25"
+                      className="w-full cursor-pointer appearance-none rounded-xl border border-gray-200 bg-white/95 py-3.5 pl-12 pr-9 text-slate-900 outline-none transition-all focus:border-orange-400 focus:ring-2 focus:ring-orange-400/25"
                   >
                     <option value="CIVIC">Civic Issue</option>
                     <option value="POLICE">Police Assistance</option>
@@ -137,7 +137,7 @@ export default function ComplaintForm() {
                   className={`flex items-center justify-center gap-2 rounded-xl border px-3 py-3 text-sm font-semibold transition-all ${
                     formData.latitude
                       ? 'border-emerald-500/40 bg-emerald-500/10 text-emerald-300'
-                      : 'border-slate-700 bg-slate-900/60 text-slate-300 hover:bg-slate-800 hover:text-white'
+                      : 'border-gray-200 bg-white/95 text-slate-900 hover:bg-gray-100 hover:text-slate-900'
                   }`}
                 >
                   {formData.latitude ? <CheckCircle2 size={18} /> : <MapPin size={18} />}
@@ -150,27 +150,27 @@ export default function ComplaintForm() {
                   className={`flex items-center justify-center gap-2 rounded-xl border px-3 py-3 text-sm font-semibold transition-all ${
                     photoAdded
                       ? 'border-blue-500/40 bg-blue-500/10 text-blue-300'
-                      : 'border-slate-700 bg-slate-900/60 text-slate-300 hover:bg-slate-800 hover:text-white'
+                      : 'border-gray-200 bg-white/95 text-slate-900 hover:bg-gray-100 hover:text-slate-900'
                   }`}
                 >
                   <Camera size={18} />
                   {photoAdded ? 'Photo Added' : 'Add Photo'}
                 </button>
               </div>
-              <input type="file" accept="image/*,video/mp4" onChange={(e) => setUploadFile(e.target.files?.[0])} className="mt-3 block w-full text-sm text-slate-300" />
+              <input type="file" accept="image/*,video/mp4" onChange={(e) => setUploadFile(e.target.files?.[0])} className="mt-3 block w-full text-sm text-slate-700" />
             </div>
-            <input value={formData.locationLabel} onChange={e => setFormData({ ...formData, locationLabel: e.target.value })} placeholder="Location name / area" className="w-full rounded-xl border border-slate-700 bg-slate-900/60 p-3.5 text-white outline-none" />
+              <input value={formData.locationLabel} onChange={e => setFormData({ ...formData, locationLabel: e.target.value })} placeholder="Location name / area" className="w-full rounded-xl border border-gray-200 bg-white/95 p-3.5 text-slate-900 outline-none" />
 
             {!localStorage.getItem('token') && (
-              <div className="rounded-xl border border-slate-700/50 bg-slate-900/35 p-4">
+              <div className="rounded-xl border border-gray-200 bg-white/95 p-4">
                 <label className="group flex w-max cursor-pointer items-center gap-3">
-                  <div className={`flex h-6 w-6 items-center justify-center rounded transition-colors ${formData.anonymous ? 'bg-orange-500' : 'border border-slate-600 bg-slate-700'}`}>
+                  <div className={`flex h-6 w-6 items-center justify-center rounded transition-colors ${formData.anonymous ? 'bg-orange-500' : 'border border-gray-200 bg-white/95'}`}>
                     {formData.anonymous && <svg width="14" height="10" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 5L4.5 8.5L13 1" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>}
                   </div>
                   <input type="checkbox" checked={formData.anonymous} onChange={e => setFormData({ ...formData, anonymous: e.target.checked })} className="sr-only" />
                   <div className="flex items-center gap-2">
                     <EyeOff size={16} className={formData.anonymous ? 'text-orange-300' : 'text-slate-500'} />
-                    <span className="select-none font-semibold text-slate-300">Submit Anonymously</span>
+                    <span className="select-none font-semibold text-slate-700">Submit Anonymously</span>
                   </div>
                 </label>
 
@@ -184,7 +184,7 @@ export default function ComplaintForm() {
                           placeholder="Contact Email (Optional)"
                           value={formData.contactEmail}
                           onChange={e => setFormData({ ...formData, contactEmail: e.target.value })}
-                          className="w-full rounded-xl border border-slate-700 bg-slate-900/60 py-3.5 pl-12 pr-4 text-white outline-none transition-all placeholder:text-slate-500 focus:border-orange-400 focus:ring-2 focus:ring-orange-400/25"
+                          className="w-full rounded-xl border border-gray-200 bg-white/95 py-3.5 pl-12 pr-4 text-slate-900 outline-none transition-all placeholder:text-slate-400 focus:border-orange-400 focus:ring-2 focus:ring-orange-400/25"
                         />
                       </div>
                     </motion.div>
